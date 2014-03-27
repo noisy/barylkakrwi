@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" media="screen">
+        <link href="{% static "css/bootstrap-responsive.min.css" %}" rel="stylesheet" media="screen">
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <style>
+            h3 {
+                font-size:  21.5px;
+            }
+            a{
+                color: #991c1c;
+            }
+            @font-face {
+                font-family:"LCChalk";
+                src: url("{% static "fonts/lcchalk.ttf" %}") /* TTF file for CSS3 browsers */
+            }
+        </style>
+    </head>
+    <body>    
+        <script src="charts/js/highcharts.js"></script>
+        <script src="charts/js/modules/exporting.js"></script>
+        <div class="container">
+            <div class="page-header" style="background-image: url({% static "img/barylka_header.png" %}); padding-bottom: 0px;">
+                <div style="height: 122px; background-image: url({% static "img/logo_wykop_250.png" %});background-repeat: no-repeat;">
+                    <h1 style="padding: 35px 0 0 60px;"><a href="http://www.wykop.pl/tag/barylkakrwi/">#BarylkaKrwi</a></h1>
+                </div>
+            </div>
+            {% block progress-bar %}
+            <span class="badge badge-important" style="margin-left: {{ procent_zapelnienia|add:"-2" }}%">{{ procent_zapelnienia}}%</span>
+            <div class="progress progress-danger">
+                <div class="bar" style="width: {{ procent_zapelnienia|floatformat:"0" }}%"></div>
+            </div>
+            {% endblock progress-bar %}
+            {% block container %}
+            {% endblock container %}
+        </div>
+        <script src="js/bootstrap.min.js"></script>
+    </body>
+</html>

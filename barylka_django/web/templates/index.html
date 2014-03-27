@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load mathfilters %}
+{% load commontags %}
+{% block progress-bar %}{% endblock progress-bar %}
+{% block container %}
+            <div class="row-fluid">
+                <div class="span4">
+                    <table class="table table-striped">
+                        <caption><h3>NAJBARDZIEJ WYKRWAWIENI</h3></caption>
+                        <tr>
+                            <th> # </th>
+                            <th>Nick</th>
+                            <th>Razem oddane</th>
+                        </tr>
+                        {% for li in rank|slice:":5" %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><a href="/ludzie/{{ li.donor }}/">{{ li.donor }}</a></td>
+                                <td>{{ li.total }} ml</td>
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                    <a href="ranking/" class="btn btn-danger pull-right">Pokaż pełen ranking</a>
+                </div>
+                <div class="span4">
+                    <table class="table table-striped">
+                        <caption><h3>OSTATNIO DOŁĄCZYLI</h3></caption>
+                        <tr>
+                            <th> # </th>
+                            <th>Nick</th>
+                            <th>Data pierwszego wpisu</th>
+                        </tr>
+                            {% for li in new_users %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><a href="/ludzie/{{ li.donor }}/">{{ li.donor }}</a></td>
+                                <td>{{ li.join_date }}</td>
+                            </tr>
+                            {% endfor %}
+                    </table>
+                </div>
+                <div class="span4">
+                    <img src="{% static "img/wire.png" %}" style="position: absolute;margin-left: 222px;margin-top: 88px;">
+                    <div style="position: absolute;margin-left: 118px;margin-top: 466px;width: 272px;height: 355px;">
+                        <div class="barel_prc" style="font-family: LCChalk; color: #ffffff;position: absolute;padding: 142px 75px 0 75px; text-align: center;width: 120px;">
+                            <div style="font-size: 24px;margin: 10px 0;z-index: 20;position: relative;">{{ procent_zapelnienia}}%</div>
+                            <div style="font-size: 14px;margin: 10px 0;z-index: 20;position: relative;">{{ total }} ml</div>
+                        </div>
+
+                        <div style="position: absolute;top: 35px;left: 212px;">
+                            <img src="{% static "img/glass.png" %}" style="position:absolute;">
+                            {% with procent_zapelnienia|mul:291|div:100|toInt as prc %}
+                            <img src="{% static "img/blood_level.png" %}" style="position:absolute;top:{{ 291|sub:prc }}px;height:{{ prc }}px;width: 100%;">
+                            {% endwith %}
+                        </div>
+                        <img src="{% static "img/barrel_1edition.png" %}" style="position: absolute;top: 140px;left: -220px;">
+                        <img src="{% static "img/barrel_2edition.png" %}" style="position: absolute;">
+                    </div>
+                    <img src="{% static "img/drop2.gif" %}" style="position: absolute;margin-left: 323px;margin-top: 414px;">
+                    <table class="table table-striped">
+                        <caption><h3>OSTATNIE WPISY</h3></caption>
+                        <tr>
+                            <th> # </th>
+                            <th>Nick</th>
+                            <th>Wielkość donacji</th>
+                        </tr>
+                        {% for li in last %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><a href="/ludzie/{{ li.author.name }}/">{{ li.author.name }}</a></td>
+                                <td><a href="http://wykop.pl/wpis/{{ li.micro_id }}/"> {{ li.total }} ml</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+
+                </div>
+            </div>
+            {% comment %}
+            <div class="row-fluid">
+                 <div id="wykres" class="span8" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+                <div class="span4">
+                    <form action="" method="POST">
+                    <select name="nick">
+                        {% for user in all_users %}
+                            <option value="{{ user.name }}">{{ user.name }}</option>
+                        {% endfor %}
+                    </select>
+                        <button type="submit" class="btn btn-danger">Pokaż</button>
+                    </form>
+                    {% if sp_user %}
+                    <table class="table table-striped">
+                        <caption><h3>{{sp_user.name}}</h3></caption>
+                        <tr>
+                            <th>lp.</th>
+                            <th>Wielkość donacji</th>
+                            <th>Data</th>
+                        </tr>
+                        {% for donation in sp_user.donations %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td><a href="http://www.wykop.pl/wpis/{{ donation.entry_id }}/">{{ donation.value }}ml</a></td>
+                                <td>{{ donation.date }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                        <tr>
+                          <td>Razem:</td>
+                          <td>{{ sp_user.total }} ml</td>
+                        </tr>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+            {% endcomment %}
+{% endblock container %}

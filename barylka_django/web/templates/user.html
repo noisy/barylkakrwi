@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load commontags %}
+{% block progress-bar %}{% endblock progress-bar %}
+
+{% block container %}
+Użytkownik: @<a href="http://www.wykop.pl/ludzie/{{ name }}/">{{ name }}</a> <br />
+Do baryłki dołączył{% if gender == "F" %}a{% endif %}: {{ join_date }}<br />
+Razem oddane: {{ total }} ml <br />
+<ul>
+{% if total_Blood %}<li>{{ total_Blood }} ml krwi pełnej</li>{% endif %}
+{% if total_Platelets %}<li>{{ total_Platelets }} ml płytek krwi (po przeliczeniu na krew pełną)</li>{% endif %}
+{% if total_Plasma %}<li>{{ total_Plasma }} ml osocza (po przeliczeniu na krew pełną){% endif %}
+</ul>
+Donacje:
+<ol>
+{% for donation in donations %}
+<li><a href="http://www.wykop.pl/wpis/{{ donation.entry_id }}/">{{ donation.date }} - {{ donation.value }} ml</a> ({{ donation_type_tr|key:donation.type }})</li>
+{% endfor %}
+</ol>
+{% endblock container %}

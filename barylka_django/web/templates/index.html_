@@ -1,0 +1,32 @@
+{% load staticfiles %}
+
+
+Ranking:<br>
+{% for li in rank %}
+    {{ forloop.counter }}. <a href="/ludzie/{{ li.donor }}/">{{ li.donor }}</a>
+    {% if li.donor__blood_type %}({{ li.donor__blood_type }}){% endif %} - {{ li.total }} ml <br />
+{% endfor %}
+
+Ostatnie wpisy:<br>
+{% for li in last %}
+    @{{ li.author.name }} - <a href="http://www.wykop.pl/wpis/{{ li.micro_id }}/">http://www.wykop.pl/wpis
+    /{{ li.micro_id }}/</a><br />
+{% endfor %}
+<br />
+{% for blood_type, rank in minirank %}
+    Ranking dla grupy {{ blood_type }}:<br />
+    {% for li in rank %}
+        {{ forloop.counter }}. <a href="/ludzie/{{ li.donor }}/">{{ li.donor }}</a> {% if li.donor__blood_type %}({{ li.donor__blood_type }}){% endif %} - {{ li.total }} ml <br />
+    {% endfor %}
+    <br />
+{% endfor %}
+
+<br />
+{% for gender, rank in genderrank %}
+    {{ gender }}:<br />
+    {% for li in rank %}
+        {{ forloop.counter }}. <a href="/ludzie/{{ li.donor }}/">{{ li.donor }}</a> {% if li.donor__blood_type %}({{ li.donor__blood_type }}){% endif %} -
+        {{ li.total }} ml <br />
+    {% endfor %}
+    <br />
+{% endfor %}
