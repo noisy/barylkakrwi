@@ -4,11 +4,23 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
+from django.views.generic.base import RedirectView
+
 urlpatterns = patterns('',
     # Examples:
+
+
+
      url(r'^$', 'barylka_django.web.views.index', name='index'),
-     url(r'^ludzie/([\w-]*)/$', 'barylka_django.web.views.user', name='user'),
+     url(r'^edycja/2/$', RedirectView.as_view(url='/', permanent=False)),
+     url(r'^edycja/(\d)/$', 'barylka_django.web.views.index', name='index'),
+
      url(r'^ranking/$', 'barylka_django.web.views.rank', name='rank'),
+     url(r'^ranking/2/$', RedirectView.as_view(url='/ranking/', permanent=False)),
+     url(r'^ranking/(\d)/$', 'barylka_django.web.views.rank', name='rank'),
+
+
+     url(r'^ludzie/([\w-]*)/$', 'barylka_django.web.views.user', name='user'),
 
      url(r'^scrap$', 'barylka_django.scrapper.scrap_micro.scrap', name='scrap'),
      url(r'^import_data$', 'barylka_django.scrapper.scrap_micro.import_data', name='import_data'),

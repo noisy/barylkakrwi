@@ -5,6 +5,7 @@
 
 {% block container %}
 Użytkownik: @<a href="http://www.wykop.pl/ludzie/{{ name }}/">{{ name }}</a> <br />
+Grupa krwi: {{ blood_type }} <br />
 Do baryłki dołączył{% if gender == "F" %}a{% endif %}: {{ join_date }}<br />
 Razem oddane: {{ total }} ml <br />
 <ul>
@@ -12,10 +13,18 @@ Razem oddane: {{ total }} ml <br />
 {% if total_Platelets %}<li>{{ total_Platelets }} ml płytek krwi (po przeliczeniu na krew pełną)</li>{% endif %}
 {% if total_Plasma %}<li>{{ total_Plasma }} ml osocza (po przeliczeniu na krew pełną){% endif %}
 </ul>
-Donacje:
-<ol>
-{% for donation in donations %}
-<li><a href="http://www.wykop.pl/wpis/{{ donation.entry_id }}/">{{ donation.date }} - {{ donation.value }} ml</a> ({{ donation_type_tr|key:donation.type }})</li>
+{% for number, data in edition.items %}
+    {% if data %}
+        <h4>Edycja nr {{ number }}</h4>
+        Donacje:<br/>
+        <ol>
+            {% for donation in data.donations %}
+                <li><a href="http://www.wykop.pl/wpis/{{ donation.entry_id }}/">{{ donation.date|date:'Y-m-d H:i' }} - {{ donation.value }} ml</a> ({{ data.donation_type_tr|key:donation.type }})</li>
+            {% endfor %}
+        </ol>
+        Razem w {{ number }}. edycji: {{ data.total }} ml <br />
+    {% endif %}
 {% endfor %}
-</ol>
+
+
 {% endblock container %}

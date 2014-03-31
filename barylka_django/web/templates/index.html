@@ -22,7 +22,7 @@
                         {% endfor %}
 
                     </table>
-                    <a href="ranking/" class="btn btn-danger pull-right">Pokaż pełen ranking</a>
+                    <a href="/ranking/{{ edycja.number }}/" class="btn btn-danger pull-right">Pokaż pełen ranking</a>
                 </div>
                 <div class="span4">
                     <table class="table table-striped">
@@ -42,23 +42,29 @@
                     </table>
                 </div>
                 <div class="span4">
-                    <img src="{% static "img/wire.png" %}" style="position: absolute;margin-left: 222px;margin-top: 88px;">
-                    <div style="position: absolute;margin-left: 118px;margin-top: 466px;width: 272px;height: 355px;">
+                    {% if edycja.number == 1 %}
+                    <div style="position: absolute;margin-left: 50px;margin-top: 330px;width: 272px;height: 355px;">
+                        <img src="{% static "img/barrel_1edition_full.png" %}" style="position: absolute;">
+                    </div>
+                    {% elif edycja.number == 2 %}
+                    <img src="{% static "img/wire.png" %}" style="position: absolute;margin-left: 222px;margin-top: 88px;display:none;">
+                    <div style="position: absolute;margin-left: 88px;margin-top: 316px;width: 272px;height: 355px;">
                         <div class="barel_prc" style="font-family: LCChalk; color: #ffffff;position: absolute;padding: 142px 75px 0 75px; text-align: center;width: 120px;">
                             <div style="font-size: 24px;margin: 10px 0;z-index: 20;position: relative;">{{ procent_zapelnienia}}%</div>
                             <div style="font-size: 14px;margin: 10px 0;z-index: 20;position: relative;">{{ total }} ml</div>
                         </div>
 
                         <div style="position: absolute;top: 35px;left: 212px;">
-                            <img src="{% static "img/glass.png" %}" style="position:absolute;">
+                            <img src="{% static "img/glass.png" %}" style="position:absolute;z-index: -20;">
                             {% with procent_zapelnienia|mul:291|div:100|toInt as prc %}
-                            <img src="{% static "img/blood_level.png" %}" style="position:absolute;top:{{ 291|sub:prc }}px;height:{{ prc }}px;width: 100%;">
+                            <img src="{% static "img/blood_level.png" %}" style="position:absolute;top:{{ 291|sub:prc }}px;height:{{ prc }}px;width: 100%;z-index: -10;">
                             {% endwith %}
                         </div>
-                        <img src="{% static "img/barrel_1edition.png" %}" style="position: absolute;top: 140px;left: -220px;">
+                        <a href="/edycja/1/"><img src="{% static "img/barrel_1edition.png" %}" style="position: absolute;top: 142px;left: -220px;"></a>
                         <img src="{% static "img/barrel_2edition.png" %}" style="position: absolute;">
                     </div>
-                    <img src="{% static "img/drop2.gif" %}" style="position: absolute;margin-left: 323px;margin-top: 414px;">
+                    <img src="{% static "img/drop2.gif" %}" style="position: absolute;margin-left: 283px;margin-top: 264px;">
+                    {% endif %}
                     <table class="table table-striped">
                         <caption><h3>OSTATNIE WPISY</h3></caption>
                         <tr>
@@ -70,48 +76,38 @@
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td><a href="/ludzie/{{ li.author.name }}/">{{ li.author.name }}</a></td>
-                                <td><a href="http://wykop.pl/wpis/{{ li.micro_id }}/"> {{ li.total }} ml</a></td>
+                                <td style="text-align: center;"><a href="http://wykop.pl/wpis/{{ li.micro_id }}/"> {{ li.total }} ml</a></td>
                             </tr>
                         {% endfor %}
                     </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6 well" style="margin-top: 20px;">
+                    <p>
+                        <strong>Baryłka Krwi</strong> to <a href="http://www.wykop.pl/mikroblog/">mikroblogowa</a> akcja
+                        <a href="http://www.wykop.pl/link/1591409/barylka-krwi-czyli-nowa-mikroblogowa-akcja-oddawania-krwi-przez-wykopowiczow/">
+                        zaproponowana i prowadzona wśród użytkowników portalu wykop.pl</a>, mająca na celu promowanie krwiodastwa
+                        wśród użytkowników tego portalu.
+                    </p>
+                    <p>
+                        Celem akcji jest zebranie wspólnymi siłami tytułowej baryłki krwi w jak najszybszym czasie.
+                        Użytkownicy akcji publikując na mikroblogu stosowne wpisy z tagiem
+                        <a href="http://www.wykop.pl/tag/barylkakrwi/wszystkie/">#barylkakrwi</a>, odejmują
+                        oddaną przez siebie ilość krwi od wspólnego licznika, przy okazji dokumentując swoje dokonania zdjęciami.
+                    </p>
 
+                    <p>
+                        <h5>Parametry {{ edycja.number }}. edycji:</h5>
+                        Ilość krwi do zebrania: {{ edycja.capacity|div:1000 }} litrów<br>
+                        Data rozpoczęcia akcji: {{ edycja.start_date }}<br>
+                        {% if edycja.end_date %}Data zakończenia akcji: {{ edycja.end_date }}{% endif %}
+                    </p>
+
+                    <p>
+                        Pomysłodawcy: <a href="http://www.wykop.pl/ludzie/PanKawa/">@PanKawa</a>, <a href="http://www.wykop.pl/ludzie/kravjec/">@kravjec</a>, <a href="http://www.wykop.pl/ludzie/viejra/">@viejra</a><br>
+                        Opiekunem akcji, twórcą tej strony i bota zliczającego wpisy jest <a href="http://www.wykop.pl/ludzie/noisy/">@noisy</a>
+                    </p>
                 </div>
             </div>
-            {% comment %}
-            <div class="row-fluid">
-                 <div id="wykres" class="span8" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
-                <div class="span4">
-                    <form action="" method="POST">
-                    <select name="nick">
-                        {% for user in all_users %}
-                            <option value="{{ user.name }}">{{ user.name }}</option>
-                        {% endfor %}
-                    </select>
-                        <button type="submit" class="btn btn-danger">Pokaż</button>
-                    </form>
-                    {% if sp_user %}
-                    <table class="table table-striped">
-                        <caption><h3>{{sp_user.name}}</h3></caption>
-                        <tr>
-                            <th>lp.</th>
-                            <th>Wielkość donacji</th>
-                            <th>Data</th>
-                        </tr>
-                        {% for donation in sp_user.donations %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td><a href="http://www.wykop.pl/wpis/{{ donation.entry_id }}/">{{ donation.value }}ml</a></td>
-                                <td>{{ donation.date }}</td>
-                            </tr>
-                        {% endfor %}
-                        <tr>
-                        <tr>
-                          <td>Razem:</td>
-                          <td>{{ sp_user.total }} ml</td>
-                        </tr>
-                    </table>
-                    {% endif %}
-                </div>
-            </div>
-            {% endcomment %}
 {% endblock container %}
