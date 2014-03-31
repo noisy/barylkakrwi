@@ -5,9 +5,7 @@ from barylka_django.web.models import *
 from django.db.models import Sum, Min, Count
 
 def index(request, edition=2):
-
     editon_obj = Edition.objects.filter(number=edition)[0]
-
     c = {'edycja':editon_obj}
     c["total"] = Donation.objects.filter(barylka_edition=edition).aggregate(Sum('value'))["value__sum"]
     c["procent_zapelnienia"] = float("%.2f" % ((c["total"]/float(editon_obj.capacity))*100))
@@ -42,9 +40,10 @@ def index(request, edition=2):
 
 
 def rank(request, edition=2):
-    c = {}
-    total = Donation.objects.filter(barylka_edition=edition).aggregate(Sum('value'))
-    c["procent_zapelnienia"] = float("%.2f" % ((total["value__sum"]/float(164000))*100))
+    editon_obj = Edition.objects.filter(number=edition)[0]
+    c = {'edycja':editon_obj}
+    c["total"] = Donation.objects.filter(barylka_edition=edition).aggregate(Sum('value'))["value__sum"]
+    c["procent_zapelnienia"] = float("%.2f" % ((c["total"]/float(editon_obj.capacity))*100))
 
     rank = Donation.objects.filter(barylka_edition=edition).values("donor", "donor__blood_type").annotate(total=Sum("value")).order_by("-total")
     rank = [rank[x:x+20] for x in range(0, len(rank),20)]
