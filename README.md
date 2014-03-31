@@ -10,3 +10,6 @@ Celem akcji jest zebranie wspólnymi siłami tytułowej baryłki krwi w jak najs
 Pomysłodawcy: [@PanKawa](http://www.wykop.pl/ludzie/PanKawa/), [@kravjec](http://www.wykop.pl/ludzie/kravjec/), [@viejra](http://www.wykop.pl/ludzie/viejra/)
 
 Opiekunem akcji, twórcą strony i bota zliczającego wpisy jest Krzysztof Szumny - [@noisy](http://www.wykop.pl/ludzie/noisy/)
+
+
+Serdeczne podziękowania dla prowadzących akcje [#sztafeta](http://sztafeta.w0lny.pl), za [udostępnienie kodu strony](https://github.com/frizikk/sztafeta-wykop). Strony mają fragmentami podobny layout, jednak cała reszta została przepisana z PHP na Django/Python.
