@@ -9,6 +9,19 @@
         <link href="{% static "css/bootstrap-responsive.min.css" %}" rel="stylesheet" media="screen">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
         <style>
+            html, body {
+              height: 100%;
+            }
+            .container{
+              min-height: 100%;
+              height: auto !important;
+              height: 100%;
+              margin-bottom:-29px; /* - height of footer */
+            }
+            .footer, #push {
+              clear:both;
+              height:29px;
+            }
             h3 {
                 font-size:  21.5px;
             }
@@ -38,8 +51,9 @@
             {% endblock progress-bar %}
             {% block container %}
             {% endblock container %}
+            <div id="push"></div>
         </div>
-        <div class="row-fluid" style="text-align: center;margin: 20px 0;position: absolute; bottom: 0;">
+        <div class="row-fluid footer" style="text-align: center;">
             Domenę i miejsce na serwerze zasponsorował serwis <a href="http://SpisTresci.pl/">SpisTresci.pl</a>. Źródła strony dostępne są w serwisie <a href="https://github.com/noisy/barylkakrwi/">GitHub</a>.
         </div>
 
