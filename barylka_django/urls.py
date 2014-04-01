@@ -22,8 +22,7 @@ urlpatterns = patterns('',
 
      url(r'^ludzie/([\w-]*)/$', 'barylka_django.web.views.user', name='user'),
 
-     url(r'^scrap$', 'barylka_django.scrapper.scrap_micro.scrap', name='scrap'),
-     url(r'^import_data$', 'barylka_django.scrapper.scrap_micro.import_data', name='import_data'),
+     url(r'^crawl$', 'barylka_django.crawler.micro_crawler.crawl', name='crawl'),
 
     # url(r'^barylka_django/', include('barylka_django.foo.urls')),
 

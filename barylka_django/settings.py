@@ -122,7 +122,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'mathfilters',
     'barylka_django.web',
-    'barylka_django.scrapper',
+    'barylka_django.crawler',
 )
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
