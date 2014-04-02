@@ -32,7 +32,7 @@ class Edition(models.Model):
 
 class User(models.Model):
     name = models.CharField(max_length=120, primary_key=True)
-    corrector = models.BooleanField()
+    corrector = models.BooleanField(default=False)
     blood_type = models.CharField(max_length=3, choices=BLOOD_TYPE, null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True)
 

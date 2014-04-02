@@ -79,11 +79,14 @@ def crawl(test):
 
                 for comment in entry.comments:
                     if '#korekta' in comment.body:
-                        user = User.objects.get(name=comment.author)
-                        if user and user.corrector:
-                            read_entry(comment.body, donations)
-                            for donation in donations:
-                                print str(donation)
+                        try:
+                            user = User.objects.get(name=comment.author)
+                            if user.corrector:
+                                read_entry(comment.body, donations)
+                                for donation in donations:
+                                    print str(donation)
+                        except User.DoesNotExist:
+                            print 'User is not corrector'
 
                 if donations:
                     user, created = User.objects.get_or_create(name=entry.author)
