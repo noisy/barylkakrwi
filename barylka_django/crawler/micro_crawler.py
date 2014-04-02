@@ -83,14 +83,15 @@ def crawl(test):
                             user = User.objects.get(name=comment.author)
                             if user.corrector:
                                 read_entry(comment.body, donations)
-                                for donation in donations:
-                                    print str(donation)
+                                if donations:
+                                    api.vote_entry_comment(entry.id, comment.id)
                         except User.DoesNotExist:
                             print 'User is not corrector'
 
                 if donations:
                     user, created = User.objects.get_or_create(name=entry.author)
                     de = DonationEntry.objects.create(micro_id=entry.id, date=entry.date, author=user, msg=entry.body)
+                    api.vote_entry(entry.id)
 
                 for donation in donations:
                     Donation.objects.create(donor=user, date=donation.get('date', de.date),
@@ -103,3 +104,4 @@ def crawl(test):
 
     from django.http import HttpResponse
     return HttpResponse("ok")
+
