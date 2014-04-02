@@ -1,4 +1,4 @@
-#barylkakrwi
+#barylkakrwi.pl
 ===========
 
 **Baryłka Krwi** to [mikroblogowa](http://www.wykop.pl/mikroblog/) akcja
