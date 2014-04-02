@@ -2,8 +2,9 @@
 import os
 import re
 import wykop
-from barylka_django.web.models import *
 from django.db.models import DateField
+from django.conf import settings
+from barylka_django.web.models import *
 from unidecode import unidecode
 
 def read_entry(body, donations):
@@ -61,7 +62,7 @@ def read_entry(body, donations):
 def crawl(test):
 
     api = wykop.WykopAPI(appkey=os.environ['BARYLKA_WYKOP_API_KEY'], secretkey=os.environ['BARYLKA_WYKOP_SECRET_KEY'],
-                         login=os.environ['BARYLKA_WYKOP_SECRET_KEY'], accountkey=os.environ['BARYLKA_WYKOP_SECRET_KEY'])
+                         login=os.environ['BARYLKA_WYKOP_LOGIN'], accountkey=os.environ['BARYLKA_WYKOP_ACCOUNT_KEY'])
 
     entries = api.tag("testowywpis")
 
@@ -73,30 +74,25 @@ def crawl(test):
 
                 read_entry(entry.body, donations)
 
-
                 for donation in donations:
                     print str(donation)
 
                 for comment in entry.comments:
                     if '#korekta' in comment.body:
-                        read_entry(comment.body, donations)
+                        user = User.objects.get(name=comment.author)
+                        if user and user.corrector:
+                            read_entry(comment.body, donations)
+                            for donation in donations:
+                                print str(donation)
 
-                        for donation in donations:
-                            print str(donation)
-
-                """
-                user, created = User.objects.get_or_create(name=entry.author)
-                de = DonationEntry.objects.create(micro_id=entry.id, date=entry.date, author=user, msg=entry.body)
+                if donations:
+                    user, created = User.objects.get_or_create(name=entry.author)
+                    de = DonationEntry.objects.create(micro_id=entry.id, date=entry.date, author=user, msg=entry.body)
 
                 for donation in donations:
-
-                    type = [type for type, ml in DONATION_TYPE if ml == donation][0]
-                    Donation.objects.create(donor=user, date=entry.date, type=type, value=donation, entry=de, barylka_edition=1)
-                """
-                print entry.body
-                for donation in donations:
-                    print str(donation)
-
+                    Donation.objects.create(donor=user, date=donation.get('date', de.date),
+                                            type=donation.get('type', 'Blood'), value=donation['value'], entry=de,
+                                            barylka_edition=settings.CURRENT_BARYLKA_EDITION)
 
             except:
                 import sys, traceback

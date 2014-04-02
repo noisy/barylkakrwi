@@ -2,3 +2,4 @@ wykop-sdk==0.2.2
 django-mathfilters==0.1.3
 Django==1.6.2
 unidecode==0.04.13
+django-cron==0.3.3

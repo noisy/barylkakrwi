@@ -118,6 +118,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    "django_cron",
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'mathfilters',
@@ -155,3 +156,9 @@ LOGGING = {
         },
     }
 }
+
+CRON_CLASSES = [
+    "barylka_django.crawler.cron.CrawlerCronJob",
+]
+
+CURRENT_BARYLKA_EDITION=2
