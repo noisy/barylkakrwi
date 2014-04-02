@@ -1,4 +1,4 @@
-#barylkakrwi.pl
+#BarylkaKrwi.pl
 ===========
 
 **Baryłka Krwi** to [mikroblogowa](http://www.wykop.pl/mikroblog/) akcja
@@ -13,3 +13,6 @@ Opiekunem akcji, twórcą strony i bota zliczającego wpisy jest Krzysztof Szumn
 
 
 Serdeczne podziękowania dla prowadzących akcje [#sztafeta](http://sztafeta.w0lny.pl), za [udostępnienie kodu strony](https://github.com/frizikk/sztafeta-wykop). Strony mają fragmentami podobny layout, jednak cała reszta została przepisana z PHP na Django/Python.
+
+
+[http://BarylkaKrwi.pl/](http://BarylkaKrwi.pl/)
