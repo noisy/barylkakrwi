@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 
 # Create your models here.
 
@@ -30,11 +31,18 @@ class Edition(models.Model):
     start_date = models.DateField()
     end_date = models.DateField(null=True)
 
+admin.site.register(Edition)
+
 class User(models.Model):
     name = models.CharField(max_length=120, primary_key=True)
     corrector = models.BooleanField(default=False)
     blood_type = models.CharField(max_length=3, choices=BLOOD_TYPE, null=True)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null=True)
+
+    def __unicode__( self ):
+        return u"@{0}".format(self.name)
+
+admin.site.register(User)
 
 class DonationEntry(models.Model):
     date = models.DateTimeField()
@@ -42,6 +50,11 @@ class DonationEntry(models.Model):
     author = models.ForeignKey(User, related_name="wrote")
     corrector = models.ForeignKey(User, related_name="corrected", null=True)
     msg = models.CharField(max_length=4098)
+
+    def __unicode__( self ):
+        return u"{2} #{3} - {0}, {1}".format(self.author, self.corrector, self.date, self.micro_id)
+
+admin.site.register(DonationEntry)
 
 class Donation(models.Model):
     donor = models.ForeignKey(User, related_name="donate")
@@ -52,3 +65,7 @@ class Donation(models.Model):
     stamp_img_url = models.CharField(max_length=2048)
     barylka_edition = models.IntegerField()
 
+    def __unicode__( self ):
+        return u"{0} ml - {1} {2}".format(self.value, self.date, self.type)
+
+admin.site.register(Donation)
