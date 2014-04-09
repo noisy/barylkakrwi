@@ -11,13 +11,13 @@
                         <tr>
                             <th> # </th>
                             <th>Nick</th>
-                            <th>Razem oddane</th>
+                            <th style="text-align: right;">Razem oddane</th>
                         </tr>
                         {% for li in rank|slice:":5" %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td><a href="/ludzie/{{ li.donor }}/">{{ li.donor }}</a></td>
-                                <td>{{ li.total }} ml</td>
+                                <td style="text-align: right;">{{ li.total }} ml</td>
                             </tr>
                         {% endfor %}
 
@@ -30,13 +30,13 @@
                         <tr>
                             <th> # </th>
                             <th>Nick</th>
-                            <th>Data pierwszego wpisu</th>
+                            <th style="text-align: right;">Pierwszy wpis</th>
                         </tr>
                             {% for li in new_users %}
                             <tr>
                                 <td>{{ forloop.counter }}</td>
                                 <td><a href="/ludzie/{{ li.donor }}/">{{ li.donor }}</a></td>
-                                <td>{{ li.join_date }}</td>
+                                <td style="text-align: right;">{{ li.join_date|date:'Y-m-d' }}</td>
                             </tr>
                             {% endfor %}
                     </table>
