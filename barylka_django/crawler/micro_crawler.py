@@ -64,7 +64,7 @@ def crawl(test):
     api = wykop.WykopAPI(appkey=os.environ['BARYLKA_WYKOP_API_KEY'], secretkey=os.environ['BARYLKA_WYKOP_SECRET_KEY'],
                          login=os.environ['BARYLKA_WYKOP_LOGIN'], accountkey=os.environ['BARYLKA_WYKOP_ACCOUNT_KEY'])
 
-    entries = api.tag("testowywpis")
+    entries = api.tag("barylkakrwi")
 
     for entry in reversed(entries['items']):
 
