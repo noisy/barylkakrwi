@@ -79,7 +79,9 @@
                             <h5>Parametry {{ edycja.number }}. edycji:</h5>
                             Ilość krwi do zebrania: {{ edycja.capacity|div:1000 }} litrów<br>
                             Data rozpoczęcia akcji: {{ edycja.start_date }}<br>
-                            {% if edycja.end_date %}Data zakończenia akcji: {{ edycja.end_date }}{% endif %}
+                            {% if edycja.end_date %}Data zakończenia akcji: {{ edycja.end_date }}<br>
+                                {% if edycja.number == 1 %}Podsumowanie: <a href="http://plamka.net/barylkakrwi/">Infografika</a> (przygotowana przez <a href="http://www.wykop.pl/ludzie/Dreszczyk/">@Dreszczyk</a>'a){% endif %}
+                            {% endif %}
                         </p>
 
                         <p>
