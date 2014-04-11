@@ -68,7 +68,7 @@ def crawl(test):
 
     for entry in reversed(entries['items']):
 
-        if not DonationEntry.objects.filter(micro_id=entry.id) and '#ignoruj' not in entry.body:
+        if not DonationEntry.objects.filter(micro_id=entry.id) and entry.type == 'entry' and '#ignoruj' not in entry.body:
             try:
                 donations=[]
 
