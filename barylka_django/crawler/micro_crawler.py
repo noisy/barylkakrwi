@@ -10,7 +10,7 @@ from unidecode import unidecode
 def read_entry(body, donations):
     body = unidecode(body.lower())
 
-    equation = re.search('(\d+)(?:\s*ml)*((?:\s*-\s*\d+(?:\s*ml)*)*)\s*=\s*(\d+)(?:\s*ml)*', body, re.MULTILINE|re.DOTALL)
+    equation = re.search('(\d+)(?:\s*ml)*((?:\s*-\s*\d+(?:\s*ml)*)*)\s*=\s*(\d+)(?:\s*ml)*', body.replace(" ", ""), re.MULTILINE|re.DOTALL)
 
     dates = re.search('dat[ay](?: donacji)?:\s*(\d{4}[-\.]\d{1,2}[-\.]\d{1,2}(?:\s*,\s*\d{4}[-\.]\d{1,2}[-\.]\d{1,2})*)', body, re.MULTILINE|re.DOTALL)
 
