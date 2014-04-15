@@ -121,6 +121,7 @@ INSTALLED_APPS = (
     "django_cron",
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'south',
     'mathfilters',
     'barylka_django.web',
     'barylka_django.crawler',
