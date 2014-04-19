@@ -19,6 +19,8 @@ urlpatterns = patterns('',
      url(r'^ludzie/([\w-]*)/$', 'barylka_django.web.views.user', name='user'),
      url(r'^crawl$', 'barylka_django.crawler.micro_crawler.crawl', name='crawl'),
 
+     url(r'^regulamin/', 'barylka_django.web.views.tos', name='tos'),
+
      url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
      url(r'^admin/', include(admin.site.urls)),
 )

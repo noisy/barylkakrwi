@@ -109,3 +109,7 @@ def user(request, user_name):
     c['blood_type'] = c['blood_type'][:-1] + ' Rh' + c['blood_type'][-1:] if c['blood_type'] else ''
     c["join_date"] = Donation.objects.filter(donor=user_name).values("donor").annotate(join_date=Min("date"))[0]["join_date"]
     return render(request, "user.html", c)
+
+def tos(request):
+    return render(request, "tos.html")
+
