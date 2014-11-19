@@ -66,6 +66,8 @@ class Donation(models.Model):
     barylka_edition = models.IntegerField()
 
     def __unicode__( self ):
-        return u"{0} ml - {1} {2}".format(self.value, self.date, self.type)
+        return u"{0} ml - {1}, {2} - @{3}".format(
+            self.value, self.date, self.type, self.entry.author.name
+        )
 
 admin.site.register(Donation)
