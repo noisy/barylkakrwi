@@ -62,7 +62,7 @@ class Donation(models.Model):
     type = models.CharField(max_length=10, choices=DONATION_TYPE)
     value = models.IntegerField()
     entry = models.ForeignKey(DonationEntry)
-    stamp_img_url = models.CharField(max_length=2048)
+    stamp_img_url = models.CharField(max_length=2048, blank=True, null=True)
     barylka_edition = models.IntegerField()
 
     def __unicode__( self ):
