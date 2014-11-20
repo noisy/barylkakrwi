@@ -18,6 +18,7 @@ urlpatterns = patterns('',
      url(r'^ranking/$', 'barylka_django.web.views.rank', name='rank'),
      url(r'^ranking/'+ str(settings.CURRENT_BARYLKA_EDITION) + r'/$', RedirectView.as_view(url='/ranking/', permanent=False)),
      url(r'^ranking/(\d)/$', 'barylka_django.web.views.rank', name='rank'),
+     url(r'^ranking/wszystkie-edycje/$', 'barylka_django.web.views.rank_all_time', name='rank'),
 
      url(r'^ludzie/([\w-]*)/$', 'barylka_django.web.views.user', name='user'),
      url(r'^crawl$', 'barylka_django.crawler.micro_crawler.crawl', name='crawl'),

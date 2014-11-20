@@ -1,0 +1,47 @@
+{% load staticfiles %}
+{% load mathfilters %}
+{% load commontags %}
+
+{% for rank1 in rank %}
+<div class="row-fluid">
+    {% for rank2 in rank1 %}
+        <div class="span4">
+            <table class="table table-striped">
+            {% with forloop.parentloop.counter0|mul:60 as top_base%}
+                {% with forloop.counter|mul:20 as top%}
+                    <caption><h3>TOP {{ top_base|add:top}}</h3></caption>
+                    <tr>
+                        <th> # </th>
+                        <th>Nick</th>
+                        <th>Razem oddane</th>
+                    </tr>
+                    {% for li in rank2 %}
+                    <tr>
+                        <td>{{ top_base|add:top|add:forloop.counter|sub:20 }}</td>
+                        <td><a href="/ludzie/{{ li.donor }}/">{{ li.donor|truncatechars:20 }}</a></td>
+                        <td>
+                            <span class="span6">{{ li.total }} ml</span>
+                            <span class="span6" data-toggle="tooltip" data-placement="left" title="{{ user_stat|key:li.donor|key:"total_Blood" }} ml krwi pełnej
+                                    {{ user_stat|key:li.donor|key:"total_Platelets" }} ml płytek krwi (po przeliczeniu na krew pełną)
+                                    {{ user_stat|key:li.donor|key:"total_Plasma" }} ml osocza (po przeliczeniu na krew pełną)"
+                                >
+                                <div class="progress progress-danger" style="height: 4px; min-height: 4px; margin-bottom: 3px; ">
+                                    <div class="bar" style="width:{{ user_stat|key:li.donor|key:"total_Blood"|mul:100|div:total_by_type.max }}%"></div>
+                                </div>
+                                <div class="progress progress-warning" style="height: 4px; min-height: 4px; margin-bottom: 3px; ">
+                                    <div class="bar" style="width:{{ user_stat|key:li.donor|key:"total_Platelets"|mul:100|div:total_by_type.max }}%"></div>
+                                </div>
+                                <div class="progress progress-success" style="height: 4px; min-height: 4px; margin-bottom: 3px; ">
+                                    <div class="bar" style="width:{{ user_stat|key:li.donor|key:"total_Plasma"|mul:100|div:total_by_type.max }}%"></div>
+                                </div>
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+                {% endwith %}
+            {% endwith %}
+            </table>
+        </div>
+    {% endfor %}
+</div>
+{% endfor %}
