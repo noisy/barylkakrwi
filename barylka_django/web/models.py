@@ -80,6 +80,9 @@ class DonationEntry(models.Model):
     corrector = models.ForeignKey(User, related_name="corrected", null=True)
     msg = models.CharField(max_length=4098)
 
+    def __unicode__( self ):
+        return u"{2} #{3} - {0}, {1}".format(self.author, self.corrector, self.date, self.micro_id)
+
     def msg_html(self):
         return format_html(self.msg)
 
