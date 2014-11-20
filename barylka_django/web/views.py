@@ -79,28 +79,66 @@ def rank(request, edition=2):
 
     return render(request, "ranking.html", c)
 
+
 def get_user_data(user_name, edition):
 
-    d = Donation.objects.filter(barylka_edition=edition).values("donor", "donor__name").filter(donor__name=user_name)
+    d = Donation.objects.filter(
+        barylka_edition=edition
+    ).values(
+        'donor', 'donor__name'
+    ).filter(donor__name=user_name)
 
     if not d:
         return
 
-    c = d.annotate(total=Sum("value"))[0]
-    c["donations"] = d.order_by("date").values()
+    c = d.annotate(total=Sum('value'))[0]
+    c['donations'] = d.order_by('date').values()
 
-    for type, ml in DONATION_TYPE:
-        dic = Donation.objects.filter(barylka_edition=edition).filter(type=type, donor=user_name).values("donor").annotate(**{"total_"+type:Sum("value")}).order_by("-total_"+type)
+    donations = c['donations']
+
+    grouped_donations = [[donations[0]]]
+    for i, donation in enumerate(donations[1:]):
+
+        if donation['date'] == donations[i]['date']:
+            grouped_donations[-1].append(donation)
+            grouped_donations[-1].sort(key=lambda x: x['value'], reverse=True)
+
+        else:
+            grouped_donations.append([donation])
+
+    c['donations'] = grouped_donations
+
+    for _type, ml in DONATION_TYPE:
+        dic = Donation.objects.filter(
+            barylka_edition=edition,
+            type=_type,
+            donor=user_name
+        ).values(
+            'donor'
+        ).annotate(
+            **{'total_'+_type: Sum('value')}
+        ).order_by('-total_' + _type)
+
         if dic:
-            c["total_"+type] = dic[0]["total_"+type]
+            c['total_'+_type] = dic[0]['total_'+_type]
 
-    c["donation_type_tr"]={"Blood":u"krew","Platelets":u"płytki","Plasma":u"osocze",}
+    c['donation_type_tr'] = {
+        'Blood': u'krew',
+        'Platelets': u'płytki',
+        'Plasma': u'osocze',
+    }
 
     return c
 
+
 def user(request, user_name):
-    c={'edition':{}, 'total':0}
-    for edition in [1, 2]:
+
+    c = {
+        'edition': {},
+        'total': 0,
+    }
+
+    for edition in [0, 1, 2]:
         c['edition'][edition] = get_user_data(user_name, edition)
         if c['edition'][edition]:
             c['total'] += c['edition'][edition]['total']
@@ -108,6 +146,7 @@ def user(request, user_name):
     c.update(User.objects.filter(name=user_name).values()[0])
     c['blood_type'] = c['blood_type'][:-1] + ' Rh' + c['blood_type'][-1:] if c['blood_type'] else ''
     c["join_date"] = Donation.objects.filter(donor=user_name).values("donor").annotate(join_date=Min("date"))[0]["join_date"]
+
     return render(request, "user.html", c)
 
 def tos(request):

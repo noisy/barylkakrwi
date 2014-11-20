@@ -13,16 +13,38 @@ Razem oddane: {{ total }} ml <br />
 {% if total_Platelets %}<li>{{ total_Platelets }} ml płytek krwi (po przeliczeniu na krew pełną)</li>{% endif %}
 {% if total_Plasma %}<li>{{ total_Plasma }} ml osocza (po przeliczeniu na krew pełną){% endif %}
 </ul>
-{% for number, data in edition.items %}
+{% for number, data in edition.items reversed %}
     {% if data %}
-        <h4>Edycja nr {{ number }}</h4>
+
+        {% if number == 0 %}
+            <h4>Donacje oddane poza Baryłką Krwi</h4>
+        {% else %}
+            <h4>Edycja nr {{ number }}</h4>
+        {% endif %}
         Donacje:<br/>
-        <ol>
-            {% for donation in data.donations %}
-                <li><a href="http://www.wykop.pl/wpis/{{ donation.entry_id }}/">{{ donation.date|date:'Y-m-d H:i' }} - {{ donation.value }} ml</a> ({{ data.donation_type_tr|key:donation.type }})</li>
+        <ol reversed>
+            {% for donation_list in data.donations reversed %}
+                <li>
+                    <span style='line-height: 30px; font-size: 16px'>
+                        <a href="http://www.wykop.pl/wpis/{{ donation_list.0.entry_id }}/">{{ donation_list.0.date|date:'Y-m-d' }}</a> -
+                        {% for donation in donation_list %}
+                            {{ donation.value }} ml ({{ data.donation_type_tr|key:donation.type }}) {% if not forloop.last %} + {% endif %}
+                        {% endfor %}
+                    {% if donation_list.0.stamp_img_url %}
+                        <a href='{{ donation_list.0.stamp_img_url }}'><img class='stamp_icon' style='height: 25px;' src='{% static 'img/approved.png' %}'></a>
+                    {% elif donation_list.0.date|date:'H:i' == '00:00' %}
+                        <img class='stamp_icon' style='height: 25px;' src='{% static 'img/checked.png' %}'>
+                    {% endif %}
+
+                    </span>
+                </li>
             {% endfor %}
         </ol>
-        Razem w {{ number }}. edycji: {{ data.total }} ml <br />
+        {% if number == 0 %}
+            Razem poza baryłką: {{ data.total }} ml <br />
+        {% else %}
+            Razem w {{ number }}. edycji: {{ data.total }} ml <br />
+        {% endif %}
     {% endif %}
 {% endfor %}
 
