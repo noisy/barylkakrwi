@@ -99,7 +99,9 @@ def get_user_data(user_name, edition):
     grouped_donations = [[donations[0]]]
     for i, donation in enumerate(donations[1:]):
 
-        if donation['date'] == donations[i]['date']:
+        if donation['date'] == donations[i]['date'] and \
+                        donation['date'].strftime('%M:%S') == '00:00':
+
             grouped_donations[-1].append(donation)
             grouped_donations[-1].sort(key=lambda x: x['value'], reverse=True)
 
