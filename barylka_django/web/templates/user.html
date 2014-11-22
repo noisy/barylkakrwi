@@ -4,7 +4,7 @@
 {% block progress-bar %}{% endblock progress-bar %}
 
 {% block container %}
-Użytkownik: @<a href="http://www.wykop.pl/ludzie/{{ name }}/">{{ name }}</a> <br />
+Użytkownik: @<a href="http://www.wykop.pl/ludzie/{{ name }}/">{{ name }}</a> {% if user.is_active and user.is_staff %}<a href="/admin/web/user/{{ name }}/">&#9998;</a>{% endif %}<br />
 Grupa krwi: {{ blood_type }} <br />
 Do baryłki dołączył{% if gender == "F" %}a{% endif %}: {{ join_date }}<br />
 Razem oddane: {{ total }} ml <br />
@@ -26,9 +26,9 @@ Razem oddane: {{ total }} ml <br />
             {% for donation_list in data.donations reversed %}
                 <li>
                     <span style='line-height: 30px; font-size: 16px'>
-                        <a href="http://www.wykop.pl/wpis/{{ donation_list.0.entry_id }}/">{{ donation_list.0.date|date:'Y-m-d' }}</a> -
+                        <a href="http://www.wykop.pl/wpis/{{ donation_list.0.entry_id }}/">{{ donation_list.0.date|date:'Y-m-d' }}</a>{% if user.is_active and user.is_staff %}<a href="/admin/web/donationentry/{{ donation_list.0.entry_id }}/">&#9998;</a>{% endif %} -
                         {% for donation in donation_list %}
-                            {{ donation.value }} ml ({{ data.donation_type_tr|key:donation.type }}) {% if not forloop.last %} + {% endif %}
+                            {{ donation.value }} ml ({{ data.donation_type_tr|key:donation.type }}{% if user.is_active and user.is_staff %}<a href="/admin/web/donation/{{ donation.id }}/">&#9998;</a>{% endif %}) {% if not forloop.last %} + {% endif %}
                         {% endfor %}
                     {% if donation_list.0.date|date:'H:i' == '00:00' %}
                         {% if donation_list.0.stamp_img_url %}
@@ -37,7 +37,6 @@ Razem oddane: {{ total }} ml <br />
                             <img class='stamp_icon' style='height: 25px;' src='{% static 'img/checked.png' %}'>
                         {% endif %}
                     {% endif %}
-
                     </span>
                 </li>
             {% endfor %}
