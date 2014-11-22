@@ -1,0 +1,54 @@
+/*css z base.html*/
+html, body {
+    height: 100%;
+}
+.container{
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin-bottom:-29px; /* - height of footer */
+}
+.footer, #push {
+    clear:both;
+    height:29px;
+}
+h3 {
+    font-size:  21.5px;
+}
+a{
+    color: #991c1c;
+}
+@font-face {
+    font-family:"LCChalk";
+    src: url("../fonts/lcchalk.ttf"); /* TTF file for CSS3 browsers */
+}
+
+.page-header{
+    background-image: url(../img/barylka_header.png);
+    padding-bottom: 0px;"
+}
+
+.pg-background {
+    height: 122px;
+    background-image: url(../img/logo_wykop_250.png);
+    background-repeat: no-repeat;"
+}
+
+.pg-background h1{
+    padding: 35px 0 0 60px;"
+
+}
+.row-fluid.footer {
+    text-align: center;
+}
+
+/*css z index.html*/
+
+.info .span6{
+    margin-top: 20px;
+}
+
+.barrel .span6{
+    margin-top: 20px;
+    height: 380px;"
+}
