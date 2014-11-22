@@ -18,7 +18,7 @@
                     {% for li in rank2 %}
                     <tr>
                         <td>{{ top_base|add:top|add:forloop.counter|sub:20 }}</td>
-                        <td><a href="/ludzie/{{ li.donor }}/">{{ li.donor|truncatechars:20 }}</a></td>
+                        <td><a href="/ludzie/{{ li.donor }}/">{{ li.donor|truncatechars:20 }}</a> {% if li.checked %}✓{% endif %}</td>
                         <td>
                             <span class="span6">{{ li.total }} ml</span>
                             <span class="span6" data-toggle="tooltip" data-placement="left" title="{{ user_stat|key:li.donor|key:"total_Blood" }} ml krwi pełnej

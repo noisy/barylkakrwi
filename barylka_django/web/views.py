@@ -41,41 +41,86 @@ def index(request, edition=2):
 
 def rank(request, edition=2):
     editon_obj = Edition.objects.filter(number=edition)[0]
-    c = {'edycja':editon_obj}
-    c['total'] = Donation.objects.filter(barylka_edition=edition).aggregate(Sum('value'))['value__sum']
-    c['procent_zapelnienia'] = float('%.2f' % ((c['total']/float(editon_obj.capacity))*100))
+    c = {'edycja': editon_obj}
 
-    rank = Donation.objects.filter(barylka_edition=edition).values('donor', 'donor__blood_type').annotate(total=Sum('value')).order_by('-total')
-    rank = [rank[x:x+20] for x in range(0, len(rank),20)]
-    c['rank'] = [rank[x:x+3] for x in range(0, len(rank),3)]
+    c['total'] = Donation.objects.filter(
+        barylka_edition=edition
+    ).aggregate(
+        Sum('value')
+    )['value__sum']
 
-    rr={}
-    user_stat={}
-    for type, ml in DONATION_TYPE:
-        rr['type'] = Donation.objects.filter(barylka_edition=edition).filter(type=type).values('donor').annotate(**{'total_'+type:Sum('value')}).order_by('-total_'+type)
+    c['procent_zapelnienia'] = float(
+        '%.2f' % ((c['total']/float(editon_obj.capacity))*100)
+    )
+
+    rank = Donation.objects.filter(
+        barylka_edition=edition
+    ).values(
+        'donor', 'donor__blood_type'
+    ).annotate(
+        total=Sum('value')
+    ).order_by(
+        '-total'
+    )
+
+    for entry in rank:
+
+        donations = Donation.objects.filter(
+            donor=entry['donor'], barylka_edition=edition
+        )
+
+        if all(d.date.strftime('%M:%S') == '00:00' for d in donations):
+            entry['checked'] = True
+
+    rank = [rank[x:x+20] for x in range(0, len(rank), 20)]
+    c['rank'] = [rank[x:x+3] for x in range(0, len(rank), 3)]
+
+    rr = {}
+    user_stat = {}
+    for _type, ml in DONATION_TYPE:
+
+        rr['type'] = Donation.objects.filter(
+            barylka_edition=edition, type=_type
+        ).values(
+            'donor'
+        ).annotate(
+            **{'total_'+_type: Sum('value')}
+        ).order_by(
+            '-total_'+_type
+        )
+
         for dic in rr['type']:
             if dic['donor'] not in user_stat:
-                user_stat[dic['donor']]={}
+                user_stat[dic['donor']] = {}
 
-            user_stat[dic['donor']]['total_'+type] = dic['total_'+type]
+            user_stat[dic['donor']]['total_'+_type] = dic['total_'+_type]
 
     for nick in user_stat.keys():
-        for type, ml in DONATION_TYPE:
-            if 'total_'+type not in user_stat[nick]:
-                user_stat[nick]['total_'+type]=0
+        for _type, ml in DONATION_TYPE:
+            if 'total_'+_type not in user_stat[nick]:
+                user_stat[nick]['total_'+_type] = 0
 
     c['user_stat'] = user_stat
 
-    c['total_by_type'] = {'max':0}
-    for type, ml in DONATION_TYPE:
-        c['total_by_type'][type] = Donation.objects.filter(barylka_edition=edition).filter(type=type).values('donor', 'value').annotate(total=Sum('value')).order_by('-total')
+    c['total_by_type'] = {'max': 0}
 
-        if c['total_by_type'][type]:
-            c['total_by_type'][type] = c['total_by_type'][type][0]['total']
-            if c['total_by_type'][type] > c['total_by_type']['max']:
-                c['total_by_type']['max'] = c['total_by_type'][type]
+    for _type, ml in DONATION_TYPE:
+        c['total_by_type'][_type] = Donation.objects.filter(
+            barylka_edition=edition, type=_type
+        ).values(
+            'donor', 'value'
+        ).annotate(
+            total=Sum('value')
+        ).order_by(
+            '-total'
+        )
+
+        if c['total_by_type'][_type]:
+            c['total_by_type'][_type] = c['total_by_type'][_type][0]['total']
+            if c['total_by_type'][_type] > c['total_by_type']['max']:
+                c['total_by_type']['max'] = c['total_by_type'][_type]
         else:
-            c['total_by_type'][type]=0
+            c['total_by_type'][_type] = 0
 
     return render(request, 'ranking.html', c)
 
