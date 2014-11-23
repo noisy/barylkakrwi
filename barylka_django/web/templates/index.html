@@ -95,12 +95,12 @@
                 <div class="barrel">
                    <div class="span6">
                         {% if edycja.number == 1 %}
-                        <div style="margin: 0px auto;margin-top: 0px;width: 272px;height: 355px;">
-                            <img src="{% static "img/barrel_1edition_full.png" %}" style="position: absolute;">
+                        <div class="edition">
+                            <img src="{% static "img/barrel_1edition_full.png" %}">
                         </div>
                         {% elif edycja.number == 2 %}
-                        <div style="margin: 0px auto;margin-top: 0px;width: 272px;height: 355px;">
-                            <div style="position: absolute;width: 272px;height: 355px;margin-left: 110px;">
+                        <div class="edition">
+                            <div class="edition-two">
                                 <div class="barel_prc" style="font-family: LCChalk; color: #ffffff;position: absolute;padding: 142px 75px 0 75px; text-align: center;width: 120px;">
                                     <div style="font-size: 24px;margin: 10px 0;z-index: 20;position: relative;">{{ procent_zapelnienia}}%</div>
                                     <div style="font-size: 14px;margin: 10px 0;z-index: 20;position: relative;">{{ total }} ml</div>
@@ -119,6 +119,6 @@
                         </div>
                         {% endif %}
                    </div>
-                </div>div>
+                </div>
             </div>
 {% endblock container %}

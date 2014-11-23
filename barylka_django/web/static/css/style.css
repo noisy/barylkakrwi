@@ -52,3 +52,26 @@ a{
     margin-top: 20px;
     height: 380px;"
 }
+.edition {
+    margin: 0px auto;
+    margin-top: 0px;
+    width: 272px;
+    height: 355px;
+}
+
+.edition img {
+    position: absolute;
+}
+
+.edition {
+    margin: 0px auto;
+    margin-top: 0px;
+    width: 272px;
+    height: 355px;"
+}
+.edition-2 {
+    position: absolute;
+    width: 272px;
+    height: 355px;
+    margin-left: 110px;
+}
