@@ -44,6 +44,10 @@ a{
 
 /*css z index.html*/
 
+.right {
+    text-align: right;
+}
+
 .info .span6{
     margin-top: 20px;
 }

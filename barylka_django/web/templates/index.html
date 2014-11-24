@@ -11,13 +11,13 @@
                 <tr>
                     <th> # </th>
                     <th>Nick</th>
-                    <th style="text-align: right;">Razem oddane</th>
+                    <th><div class="right">Razem oddane</div></th>
                 </tr>
                 {% for li in rank|slice:":5" %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td><a href="/ludzie/{{ li.donor }}/">{{ li.donor }}</a></td>
-                        <td style="text-align: right;">{{ li.total }} ml</td>
+                        <td><div class="right">{{ li.total }} ml</div></td>
                     </tr>
                 {% endfor %}
 
@@ -30,13 +30,13 @@
                 <tr>
                     <th> # </th>
                     <th>Nick</th>
-                    <th style="text-align: right;">Pierwszy wpis</th>
+                    <th><div class="right">Pierwszy wpis</div></th>
                 </tr>
                     {% for li in new_users %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td><a href="/ludzie/{{ li.donor }}/">{{ li.donor }}</a></td>
-                        <td style="text-align: right;">{{ li.join_date|date:'Y-m-d' }}</td>
+                        <td><div class="right">{{ li.join_date|date:'Y-m-d' }}</div></td>
                     </tr>
                     {% endfor %}
             </table>
@@ -47,13 +47,13 @@
                 <tr>
                     <th> # </th>
                     <th>Nick</th>
-                    <th>Wielkość donacji</th>
+                    <th><div class="right">Wielkość donacji</div></th>
                 </tr>
                 {% for li in last %}
                     <tr>
                         <td>{{ forloop.counter }}</td>
                         <td><a href="/ludzie/{{ li.author.name }}/">{{ li.author.name }}</a></td>
-                        <td style="text-align: center;"><a href="http://wykop.pl/wpis/{{ li.micro_id }}/"> {{ li.total }} ml</a></td>
+                        <td><div class="right"><a href="http://wykop.pl/wpis/{{ li.micro_id }}/"> {{ li.total }} ml</a></div></td>
                     </tr>
                 {% endfor %}
             </table>
