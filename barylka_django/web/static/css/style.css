@@ -69,9 +69,58 @@ a{
     width: 272px;
     height: 355px;"
 }
-.edition-2 {
+.edition_barrel {
     position: absolute;
     width: 272px;
     height: 355px;
     margin-left: 110px;
+}
+.barrel_prc {
+    font-family: LCChalk;
+    color: #ffffff;
+    position: absolute;
+    padding: 142px 75px 0 75px;
+    text-align: center;
+    width: 120px;
+}
+
+.percent {
+    font-size: 24px;
+    margin: 10px 0;
+    z-index: 20;
+    position: relative;
+}
+
+.total_ml {
+    font-size: 14px;
+    margin: 10px 0;
+    z-index: 20;
+    position: relative;
+}
+
+.glass {
+    position: absolute;
+    top: 35px;
+    left: 212px;"
+}
+
+.glass img {
+    position:absolute;
+    z-index: -20;
+}
+
+.barrel_one {
+    position: absolute;
+    top: 142px;
+    left: -220px;
+}
+
+.barrel_two img {
+    position: absolute;
+}
+
+.drop img {
+    position: absolute;
+    margin-left: 243px;
+    margin-top: -55px;
 }

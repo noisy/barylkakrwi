@@ -100,22 +100,27 @@
                         </div>
                         {% elif edycja.number == 2 %}
                         <div class="edition">
-                            <div class="edition-two">
-                                <div class="barel_prc" style="font-family: LCChalk; color: #ffffff;position: absolute;padding: 142px 75px 0 75px; text-align: center;width: 120px;">
-                                    <div style="font-size: 24px;margin: 10px 0;z-index: 20;position: relative;">{{ procent_zapelnienia}}%</div>
-                                    <div style="font-size: 14px;margin: 10px 0;z-index: 20;position: relative;">{{ total }} ml</div>
+                            <div class="edition_barrel">
+                                <div class="barrel_prc">
+                                    <div class="percent">{{ procent_zapelnienia}}%</div>
+                                    <div class="total_ml">{{ total }} ml</div>
                                 </div>
-
-                                <div style="position: absolute;top: 35px;left: 212px;">
-                                    <img src="{% static "img/glass.png" %}" style="position:absolute;z-index: -20;">
+                                <div class="glass">
+                                    <img src="{% static "img/glass.png" %}">
                                     {% with procent_zapelnienia|mul:291|div:100|toInt as prc %}
-                                    <img src="{% static "img/blood_level.png" %}" style="position:absolute;top:{{ 291|sub:prc }}px;height:{{ prc }}px;width: 100%;z-index: -10;">
+                                        <img src="{% static "img/blood_level.png" %}" style="position:absolute;top:{{ 291|sub:prc }}px;height:{{ prc }}px;width: 100%;z-index: -10;">
                                     {% endwith %}
                                 </div>
-                                <a href="/edycja/1/"><img src="{% static "img/barrel_1edition.png" %}" style="position: absolute;top: 142px;left: -220px;"></a>
-                                <img src="{% static "img/barrel_2edition.png" %}" style="position: absolute;">
+                                <div class="barrel_one">
+                                    <a href="/edycja/1/"><img src="{% static "img/barrel_1edition.png" %}"></a>
+                                </div>
+                                <div class="barrel_two">
+                                    <img src="{% static "img/barrel_2edition.png" %}">
+                                </div>
                             </div>
-                            <img src="{% static "img/drop2.gif" %}" style="position: absolute;margin-left: 243px;margin-top: -55px;">
+                            <div class="drop">
+                                <img src="{% static "img/drop2.gif" %}">
+                            </div>
                         </div>
                         {% endif %}
                    </div>
