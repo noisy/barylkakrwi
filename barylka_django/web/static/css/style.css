@@ -1,0 +1,147 @@
+/*css z base.html*/
+html, body {
+    height: 100%;
+}
+.container {
+    min-height: 100%;
+    height: auto !important;
+    margin-bottom: -29px; /* - height of footer */
+}
+.footer, #push {
+    clear: both;
+    height: 29px;
+}
+h3 {
+    font-size:  21.5px;
+}
+a {
+    color: #991c1c;
+}
+@font-face {
+    font-family: "LCChalk";
+    src: url("../fonts/lcchalk.ttf"); /* TTF file for CSS3 browsers */
+}
+.page-header {
+    background-image: url("../img/barylka_header.png");
+    padding-bottom: 0px;
+}
+
+.pg-background {
+    height: 122px;
+    background-image: url("../img/logo_wykop_250.png");
+    background-repeat: no-repeat;
+}
+
+.pg-background h1 {
+    padding: 35px 0 0 60px;
+
+}
+.row-fluid.footer {
+    text-align: center;
+}
+
+/*css z index.html*/
+
+.right {
+    text-align: right;
+}
+
+.info .span6{
+    margin-top: 20px;
+}
+
+.barrel .span6 {
+    margin-top: 20px;
+    height: 380px;
+}
+.edition {
+    margin: 0px auto;
+    margin-top: 0px;
+    width: 272px;
+    height: 355px;
+}
+
+.edition img {
+    position: absolute;
+}
+
+.edition {
+    margin: 0px auto;
+    margin-top: 0px;
+    width: 272px;
+    height: 355px;
+}
+.edition_barrel {
+    position: absolute;
+    width: 272px;
+    height: 355px;
+    margin-left: 110px;
+}
+.barrel_prc {
+    font-family: LCChalk;
+    color: #ffffff;
+    position: absolute;
+    padding: 142px 75px 0 75px;
+    text-align: center;
+    width: 120px;
+}
+
+.percent {
+    font-size: 24px;
+    margin: 10px 0;
+    z-index: 20;
+    position: relative;
+}
+
+.total_ml {
+    font-size: 14px;
+    margin: 10px 0;
+    z-index: 20;
+    position: relative;
+}
+
+.glass {
+    position: absolute;
+    top: 35px;
+    left: 212px;
+}
+
+.glass img {
+    position:absolute;
+    z-index: -20;
+}
+
+.barrel_one {
+    position: absolute;
+    top: 142px;
+    left: -220px;
+}
+
+.barrel_two img {
+    position: absolute;
+}
+
+.drop img {
+    position: absolute;
+    margin-left: 243px;
+    margin-top: -55px;
+}
+
+/*css z ranking_content.html*/
+
+.small_bar .progress {
+    height: 4px;
+    min-height: 4px;
+    margin-bottom: 3px;
+}
+
+/*css z user.html*/
+
+.user {
+    line-height: 30px;
+    font-size: 16px;
+}
+
+.stamp_icon {
+    height: 25px;
+}

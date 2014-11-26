@@ -25,16 +25,16 @@ Razem oddane: {{ total }} ml <br />
         <ol reversed>
             {% for donation_list in data.donations reversed %}
                 <li>
-                    <span style='line-height: 30px; font-size: 16px'>
+                    <span class="user">
                         <a href="http://www.wykop.pl/wpis/{{ donation_list.0.entry_id }}/">{{ donation_list.0.date|date:'Y-m-d' }}</a> -
                         {% for donation in donation_list %}
                             {{ donation.value }} ml ({{ data.donation_type_tr|key:donation.type }}) {% if not forloop.last %} + {% endif %}
                         {% endfor %}
                     {% if donation_list.0.date|date:'H:i' == '00:00' %}
                         {% if donation_list.0.stamp_img_url %}
-                            <a href='{{ donation_list.0.stamp_img_url }}'><img class='stamp_icon' style='height: 25px;' src='{% static 'img/approved.png' %}'></a>
+                            <a href='{{ donation_list.0.stamp_img_url }}'><img class='stamp_icon' src='{% static 'img/approved.png' %}'></a>
                         {% else %}
-                            <img class='stamp_icon' style='height: 25px;' src='{% static 'img/checked.png' %}'>
+                            <img class='stamp_icon' src='{% static 'img/checked.png' %}'>
                         {% endif %}
                     {% endif %}
 

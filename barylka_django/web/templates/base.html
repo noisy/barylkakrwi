@@ -7,6 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="{% static "css/bootstrap.css" %}" rel="stylesheet" media="screen">
         <link href="{% static "css/bootstrap-responsive.min.css" %}" rel="stylesheet" media="screen">
+        <link href="{% static "css/style.css" %}" rel="stylesheet" media="screen">
         <link rel="shortcut icon" href="/static/img/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/static/img/favicon.ico" type="image/x-icon">
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
@@ -19,39 +20,14 @@
           ga('create', 'UA-49951774-1', 'barylkakrwi.pl');
           ga('send', 'pageview');
         </script>
-        <style>
-            html, body {
-              height: 100%;
-            }
-            .container{
-              min-height: 100%;
-              height: auto !important;
-              height: 100%;
-              margin-bottom:-29px; /* - height of footer */
-            }
-            .footer, #push {
-              clear:both;
-              height:29px;
-            }
-            h3 {
-                font-size:  21.5px;
-            }
-            a{
-                color: #991c1c;
-            }
-            @font-face {
-                font-family:"LCChalk";
-                src: url("{% static "fonts/lcchalk.ttf" %}") /* TTF file for CSS3 browsers */
-            }
-        </style>
     </head>
     <body>    
         <script src="charts/js/highcharts.js"></script>
         <script src="charts/js/modules/exporting.js"></script>
         <div class="container">
-            <div class="page-header" style="background-image: url({% static "img/barylka_header.png" %}); padding-bottom: 0px;">
-                <div style="height: 122px; background-image: url({% static "img/logo_wykop_250.png" %});background-repeat: no-repeat;">
-                    <h1 style="padding: 35px 0 0 60px;"><a href="/">#BarylkaKrwi</a></h1>
+            <div class="page-header">
+                <div class="pg-background">
+                    <h1><a href="/">#BarylkaKrwi</a></h1>
                 </div>
             </div>
             {% block progress-bar %}
@@ -64,7 +40,7 @@
             {% endblock container %}
             <div id="push"></div>
         </div>
-        <div class="row-fluid footer" style="text-align: center;">
+        <div class="row-fluid footer">
             Domenę i miejsce na serwerze zasponsorował serwis <a href="http://SpisTresci.pl/?utm_source=spn&utm_medium=footer&utm_campaign=barylkakrwi">SpisTresci.pl</a>. Źródła strony dostępne są w serwisie <a href="https://github.com/noisy/barylkakrwi/">GitHub</a>. <a href="/regulamin/">Regulamin</a>.
         </div>
 
