@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{% static "css/wykop_mikro_styles.css" %}" rel="stylesheet" media="screen">
+</head>
+<body>
+    <center>
+        <div class="page-header">
+            <div class="pg-background">
+                <h1><a href="/">#BarylkaKrwi</a></h1>
+            </div>
+        </div>
+        <div class="title">Zaakceptowane wpisy</div>
+        {% for entry in donationEntries %}
+            <div id="DIV_52">
+                <div id="DIV_53">
+                    {% include "wykop_mikro_container.html" %}
+                </div>
+            </div>
+        {% endfor %}
+    </center>
+</body>
+</html>

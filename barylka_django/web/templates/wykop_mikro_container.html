@@ -1,0 +1,65 @@
+{% load commontags %}
+		<div id="DIV_54">
+			<div id="DIV_55">
+				<div id="DIV_56">
+					<ul id="UL_1">
+						<li id="LI_2">
+							<div id="DIV_3">
+								<a name="comment-10322116" id="A_4"></a>
+                                <a href="http://www.wykop.pl/ludzie/Zioman/" id="A_5">
+                                    <img alt="" src="" id="IMG_6"
+                                            style="box-shadow:
+                                            {% if entry.author.gender == 'M' %}
+                                                rgb(70, 171, 242) 0px 2px 0px 0px;
+                                            {% elif entry.author.gender == 'F' %}
+                                                rgba(242, 70, 208, 1);
+                                            {% endif %}
+                                            "
+
+
+                                            /></a>
+								<div id="DIV_7">
+									<div id="DIV_8">
+										 <a href="http://www.wykop.pl/ludzie/{{ entry.author.name }}/" id="A_9">
+                                             <b id="B_10" >{{ entry.author.name }}</b>
+                                         </a>
+                                        <a href="http://www.wykop.pl/wpis/10322116/takie-cus-sie-dostaje-w-uk-za-dziesiate-oddanie-kr/" id="A_11">
+                                            <small id="SMALL_12"></small>
+                                        </a>
+										<time id="TIME_13" title="{{ entry.date }}">
+											{{ entry.date|timesince }}
+										</time>
+                                        <small id="SMALL_14">(<a href="http://www.wykop.pl/wpis/{{ entry.micro_id }}/">link do oryginalnego wpisu</a>)</small>
+										<p id="P_15">
+											 <b id="B_16"><span id="SPAN_17">+15</span></b> <a href="http://www.wykop.pl/ajax2/wpis/voteUp/10322116/hash/0c9e72db57839506cad149cf07e44d3a-1417206214/" id="A_18"><i id="I_19"></i></a><i id="I_20"></i>
+										</p>
+									</div>
+									<div id="DIV_21">
+                                        {{ entry.msg|safe }}
+                                        <br/>
+									</div>
+                                    {% for donation in entry.donation_set.all|sort_by_keys:'date,-value' %}
+                                        {% if donation.barylka_edition == edition %}
+                                            <div class="donations">
+                                                {{ donation.value }} ml ({{ donation_type_tr|key:donation.type }})<br/>
+                                                {{ donation.date|date:'d-m-Y' }}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <div style="clear:both;"></div>
+
+                                    <div class="stamps">
+                                        {% for donation in entry.donation_set.all|sort_by_keys:'date,-value' %}
+                                            {% if donation.barylka_edition == edition %}
+                                                <img src="{{ donation.stamp_img_url }}" />
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>

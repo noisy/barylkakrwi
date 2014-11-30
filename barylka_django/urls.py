@@ -20,6 +20,8 @@ urlpatterns = patterns('',
      url(r'^ranking/(\d)/$', 'barylka_django.web.views.rank', name='rank'),
      url(r'^ranking/wszystkie-edycje/$', 'barylka_django.web.views.rank_all_time', name='rank'),
 
+     url(r'^wpisy/(\d)/$', 'barylka_django.web.views.tag_browser', name='tag_browser'),
+
      url(r'^ludzie/([\w-]*)/$', 'barylka_django.web.views.user', name='user'),
      url(r'^crawl$', 'barylka_django.crawler.micro_crawler.crawl', name='crawl'),
 

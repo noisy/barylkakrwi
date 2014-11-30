@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
+from barylka_django.settings import CURRENT_BARYLKA_EDITION
 from barylka_django.web.models import *
+from django.db.models import Sum, Min
 
-from django.db.models import Sum, Min, Count
 
-def index(request, edition=2):
+def index(request, edition=CURRENT_BARYLKA_EDITION):
     editon_obj = Edition.objects.filter(number=edition)[0]
     c = {'edycja':editon_obj}
     c["total"] = Donation.objects.filter(barylka_edition=edition).aggregate(Sum('value'))["value__sum"]
@@ -39,7 +40,7 @@ def index(request, edition=2):
     return render(request, "index.html", c)
 
 
-def rank(request, edition=2):
+def rank(request, edition=CURRENT_BARYLKA_EDITION):
     editon_obj = Edition.objects.filter(number=edition)[0]
     c = {'edycja':editon_obj}
     c['total'] = Donation.objects.filter(barylka_edition=edition).aggregate(Sum('value'))['value__sum']
@@ -214,6 +215,21 @@ def user(request, user_name):
 
     return render(request, "user.html", c)
 
+
 def tos(request):
     return render(request, "tos.html")
 
+
+def tag_browser(request, edition=CURRENT_BARYLKA_EDITION):
+
+    c = {
+        'donationEntries': DonationEntry.objects.all().order_by('-date'),
+        'donation_type_tr': {
+            'Blood': u'krew',
+            'Platelets': u'płytki',
+            'Plasma': u'osocze',
+        },
+        'edition': edition,
+    }
+
+    return render(request, 'tag_browser.html', c)
