@@ -1,4 +1,6 @@
 {% load commontags %}
+{% load staticfiles %}
+
 		<div id="DIV_54">
 			<div id="DIV_55">
 				<div id="DIV_56">
@@ -51,7 +53,11 @@
                                     <div class="stamps">
                                         {% for donation in entry.donation_set.all|sort_by_keys:'date,-value' %}
                                             {% if donation.barylka_edition == edition %}
-                                                <img src="{{ donation.stamp_img_url }}" />
+                                                {% if donation.stamp_img_url %}
+                                                    <img src="{{ donation.stamp_img_url }}" />
+                                                {% else %}
+                                                    <img src="{% static "img/brak-obrazka.jpg" %}" />
+                                                {% endif %}
                                             {% endif %}
                                         {% endfor %}
                                     </div>

@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 from django.shortcuts import render
 from barylka_django.settings import CURRENT_BARYLKA_EDITION
 from barylka_django.web.models import *
@@ -222,14 +223,26 @@ def tos(request):
 
 def tag_browser(request, edition=CURRENT_BARYLKA_EDITION):
 
+    edition = int(edition)
+
+    barylka_edition = Edition.objects.get(number=edition)
+
+    end_date = barylka_edition.end_date or datetime.datetime.now()
+
+    entries = DonationEntry.objects.all(
+    ).filter(
+        date__gte = barylka_edition.start_date,
+        date__lte = end_date
+    ).order_by('-date')
+
     c = {
-        'donationEntries': DonationEntry.objects.all().order_by('-date'),
+        'donationEntries': entries,
         'donation_type_tr': {
             'Blood': u'krew',
             'Platelets': u'płytki',
             'Plasma': u'osocze',
         },
-        'edition': int(edition),
+        'edition': edition,
     }
 
     return render(request, 'tag_browser.html', c)
