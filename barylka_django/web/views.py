@@ -229,7 +229,7 @@ def tag_browser(request, edition=CURRENT_BARYLKA_EDITION):
             'Platelets': u'płytki',
             'Plasma': u'osocze',
         },
-        'edition': edition,
+        'edition': int(edition),
     }
 
     return render(request, 'tag_browser.html', c)
